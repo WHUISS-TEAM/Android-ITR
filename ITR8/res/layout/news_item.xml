@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+     
+    <LinearLayout
+		android:id="@+id/avatarlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
+            
+        <ImageView 
+			android:id="@+id/news_avatar"
+			android:layout_width="56dp"
+			android:layout_height="56dp"
+			android:layout_marginTop="8sp"
+			android:layout_marginBottom="6sp"
+			android:background="@drawable/avatar_1" />
+             
+	</LinearLayout>
+        
+    <RelativeLayout
+        android:id="@+id/relative1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/avatarlayout" >
+
+            <TextView 
+                 android:id="@+id/news_text"
+                 android:layout_marginTop="20sp"
+            	 android:layout_marginBottom="6sp"
+            	 android:layout_marginLeft="6sp"
+            	 android:layout_width="wrap_content"
+            	 android:layout_height="wrap_content"
+            	 android:text="樱花节的时候有人一起去逛樱顶吗？去..."
+            	 android:textSize="14sp"
+            	 android:ellipsize="end"
+            	 android:singleLine="true" />
+            
+     </RelativeLayout>
+     
+     <RelativeLayout
+		android:id="@+id/relative2"
+		android1:layout_alignParentRight="true"
+        android:layout_below="@id/relative1"
+        android:layout_marginBottom="6sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+             
+        <ImageView 
+			android:id="@+id/news_tag"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:gravity="right"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/firsttag_1"/>
+        
+        <TextView 
+            android:id="@+id/news_vote"
+            android:textColor="#6B6B6B"
+            android:layout_toRightOf="@id/news_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="1dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textStyle="italic"
+            android:text="1536人支持" />
+        
+     </RelativeLayout>
+     
+     <TextView 
+         android:layout_width="fill_parent"
+         android:layout_marginTop="6sp"
+         android:layout_height="1dp"
+      	 android:layout_alignParentBottom="true"
+         android:background="#10000000"/>
+     
+</RelativeLayout>
+               
+    
+
+

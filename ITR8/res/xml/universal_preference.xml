@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="聊天设定" android:key="@string/universal_preference_category_chat_settings">
+        <ListPreference android:key="@string/universal_preference_font_size" android:dialogTitle="设置字体大小" android:entryValues="@array/font_size_value" android:title="字体大小" android:entries="@array/font_size_name" android:defaultValue="medium"/>
+        <PreferenceScreen android:title="设置聊天背景" android:key="@string/universal_preference_background">
+            
+            <intent android:action="org.itrgroup.itr.menucontents.SettingUniversalPreference"   
+        android:targetPackage="org.itrgroup.itr" android:targetClass="org.itrgroup.itr.menucontents.SettingChoosePic" /> 
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="全局设置" android:key="@string/universal_preference_category_global_control">
+    </PreferenceCategory>
+    
+
+</PreferenceScreen>

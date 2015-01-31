@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#50ffffff"
+    tools:context="${packageName}.${activityClass}" >
+
+    <ImageView
+        android:id="@+id/listIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dip"
+        android:layout_marginTop="20dip"
+        android:contentDescription="@string/icon" />
+
+    <TextView
+        android:id="@+id/group_name"
+        android:layout_width="wrap_content"
+ 		android:layout_height="50dip"
+        android:layout_marginLeft="35dip"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/group_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/group_name"
+        android:layout_toLeftOf="@+id/blank"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+     <TextView
+        android:id="@+id/blank"
+        android:layout_width="10dip"
+        android:layout_height="50dip"
+        android:layout_alignBaseline="@+id/group_name"
+        android:layout_alignParentRight="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+            <Preference android:title="选择背景" android:key="@string/choose_pic_get_background_from_system"/>
+            <Preference android:title="从相册选择" android:key="@string/choose_pic_get_background_from_album"/>
+            <Preference android:key="@string/choose_pic_get_from_take_photo" android:title="相机拍照"/>
+
+</PreferenceScreen>

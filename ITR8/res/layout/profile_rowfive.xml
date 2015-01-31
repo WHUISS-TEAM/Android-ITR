@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    
+    >
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_color"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:alpha="0.3"
+        />
+
+	    <RelativeLayout 
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"
+	       android:layout_marginLeft="15dp"
+	       android:layout_marginRight="15dp"
+	       android:layout_marginTop="10dp"
+	       >      
+        <TextView 
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:textSize="@dimen/text_size_one"
+        	android:textStyle="bold"
+        	android:text="@string/label_party"
+        	android:id="@+id/label_party"
+        	/> 
+        
+        <org.itrgroup.itr.utils.NoScrollGridView
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:numColumns="1"
+        	android:id="@+id/party"
+        	android:layout_below="@id/label_party"
+        	android:layout_alignLeft="@id/label_party"
+        	/> 
+        	</RelativeLayout>
+        	
+      
+</FrameLayout>

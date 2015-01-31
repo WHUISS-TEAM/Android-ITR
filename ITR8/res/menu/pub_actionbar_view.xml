@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.itr8.MainActivity" >
+    
+    <item  
+        android:id="@+id/pub_send"  
+        android:icon="@drawable/pub_send"  
+        android:showAsAction="always"
+        android:title="发送"/>  
+        
+
+</menu>

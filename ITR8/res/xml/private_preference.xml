@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="好友申请管理" android:key="@string/private_preference_category_friend_apply">
+        <SwitchPreference android:switchTextOn="开" android:switchTextOff="关" android:key="@string/private_preference_access_to_info" android:summary="允许陌生人访问我的资料"/>
+        <SwitchPreference android:switchTextOn="开" android:switchTextOff="关" android:key="@string/private_preference_add_friend" android:summary="允许接收好友申请信息"/>
+        <SwitchPreference android:switchTextOn="开" android:switchTextOff="关" android:key="@string/private_preference_recieve_message" android:summary="允许接受陌生人信息"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:key="@string/private_preference_category_friend_control" android:title="好友管理">
+        <Preference android:key="@string/pruvate_preference_blacklist" android:title="通讯录黑名单" android:summary="添加到黑名单中的好友无法查看您发布的消息"/>
+        <Preference android:key="@string/private_preference_refuse_access" android:title="屏蔽名单" android:summary="屏蔽与此人的对话，同时您将无法访问该用户的消息"/>
+    </PreferenceCategory>
+    
+
+</PreferenceScreen>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory xmlns:android="http://schemas.android.com/apk/res/android" android:key="@string/message_preference_category_new_message" android:title="新消息提醒">
+        <SwitchPreference android:key="@string/message_preference_receive_or_not" android:title="接收新消息提醒" android:summaryOff="关闭接收" android:summaryOn="开启接收" android:switchTextOn="开" android:switchTextOff="关"/>
+        <SwitchPreference android:summaryOff="关闭震动" android:summaryOn="开启震动" android:switchTextOn="开" android:switchTextOff="关" android:key="@string/message_preference_vibrate_or_not" android:title="震动" android:dependency="receive_or_not"/>
+        <SwitchPreference android:summaryOff="提示音关闭" android:title="声音" android:summaryOn="提示音开启" android:switchTextOn="开" android:switchTextOff="关" android:key="@string/message_preference_sound_or_not" android:dependency="receive_or_not"/>
+        <RingtonePreference android:title="设置提示音" android:ringtoneType="notification" android:showSilent="true" android:key="@string/message_preference_ring_tone" android:showDefault="true" android:dependency="sound_or_not"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="免打扰功能" android:key="@string/message_preference_category_no_disturbing">
+        <SwitchPreference android:summaryOff="免打扰关闭" android:title="设置免打扰" android:summaryOn="免打扰开启" android:switchTextOn="开" android:switchTextOff="关" android:key="@string/message_preference_no_disturbing_or_not"/>
+        <ListPreference android:key="@string/message_preference_function_no_disturbing" android:title="功能消息免打扰" android:dependency="no_disturbing_or_not" android:entries="@array/no_disturbing_name_list" android:dialogTitle="设置功能消息免打扰" android:entryValues="@array/no_disturbing_value_list" android:summary="开启后，接收到功能消息的时候将不再提醒。夜间时段是20:00到8:00"/>
+    </PreferenceCategory>
+    
+
+</PreferenceScreen>

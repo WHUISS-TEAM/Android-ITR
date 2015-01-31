@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="same_major">
+        <item>左岸木笔</item>
+        <item>River</item>
+        <item>Albert</item>
+        <item>梦幻之夜</item>
+        <item>Destiny</item>
+    </string-array>
+    
+    <string-array name="teamate">
+        <item>River</item>
+        <item>左岸木笔</item>
+        <item>Albert</item>
+        <item>梦幻之夜</item>
+        <item>Destiny</item>
+    </string-array>
+    
+     <string-array name="interests">
+        <item>River</item>
+        <item>Albert</item> 
+    </string-array>
+    
+      <string-array name="same_major_detail">
+        <item>正是因为孤独所以哗众，但是众人亦是孤独才是众人</item>
+        <item>更愿意展望未来而不是拘于泥现在有的一切</item>
+        <item>Strive for the best and always look up</item>
+        <item>Man does not dwell on dreams and forget to live</item>
+        <item>其曲弥高   其和弥寡</item>
+    </string-array>
+    
+      <string-array name="teamate_detail">
+        <item>ITR 主界面设计</item>
+        <item>ITR 搜索界面设计</item>
+        <item>ITR 个人资料界面设计</item>
+        <item>ITR 好友界面设计</item>
+        <item>ITR 消息界面设计</item>
+    </string-array>
+    
+      <string-array name="interests_detail">
+        <item>羽毛球  level2</item>
+        <item>羽毛球   高手</item> 
+    </string-array>
+    
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <Preference
+        android:key="@string/launch_preference_my_account"
+        android:title="我的账号" >
+        <!-- 这里的action是详细的起始页面的位置，而targetPackage是整个项目最外层的包，而targetClass则是要跳转的activity的详细位置 -->
+       <intent android:action="org.itrgroup.itr.menucontents.ArcMenuSetting"   
+        android:targetPackage="org.itrgroup.itr" android:targetClass="org.itrgroup.itr.menucontents.SettingAccountPreference" />  
+        
+    </Preference>
+    <Preference 
+        android:key="@string/launch_preference_new_message"
+        android:title="新消息提醒"
+        >
+        
+        <intent android:action="org.itrgroup.itr.menucontents.menucontents.ArcMenuSetting"   
+        android:targetPackage="org.itrgroup.itr" android:targetClass="com.example.itr8.menucontents.SettingMessagePreference" /> 
+    </Preference>
+    
+    <Preference 
+        android:key="@string/launch_preference_my_private"
+        android:title="隐私"
+        >
+        
+        <intent android:action="org.itrgroup.itr.menucontents.menucontents.ArcMenuSetting"   
+        android:targetPackage="org.itrgroup.itr" android:targetClass="org.itrgroup.itr.menucontents.SettingPrivatePreference" /> 
+    </Preference>
+    
+    <Preference 
+        android:key="@string/launch_preference_universal"
+        android:title="通用"
+        >
+        
+        <intent android:action="org.itrgroup.itr.menucontents.menucontents.ArcMenuSetting"   
+        android:targetPackage="org.itrgroup.itr" android:targetClass="org.itrgroup.itr.menucontents.SettingUniversalPreference" /> 
+    </Preference>
+    
+    <Preference 
+        android:key="@string/launch_preference_about"
+        android:title="关于"
+        >
+
+    </Preference>
+
+    
+
+</PreferenceScreen>

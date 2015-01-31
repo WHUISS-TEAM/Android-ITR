@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- launch_activity.xml的所有的key值 -->
+    <string name="launch_preference_my_account">my_account</string>
+    <string name="launch_preference_new_message">new_message</string>
+    <string name="launch_preference_my_private">my_private</string>
+    <string name="launch_preference_universal">universal</string>
+    <string name="launch_preference_about">about</string>
+    
+    <!-- account_preference的所有key值 -->
+    <string name="account_preference_category_account_info">account_info</string>
+    <string name="account_preference_account_num">account_num</string>
+    <string name="account_preference_phone_num">phone_num</string>
+    <string name="account_preference_email">email</string>
+    <string name="account_preference_password">password</string>
+    
+    
+    <!-- message_preference的所有的key值 -->
+    <string name="message_preference_category_new_message">new_message</string>
+    <string name="message_preference_receive_or_not">receive_or_not</string>
+    <string name="message_preference_vibrate_or_not">vibrate_or_not</string>
+    <string name="message_preference_sound_or_not">sound_or_not</string>
+    <string name="message_preference_ring_tone">ring_tone</string>
+    
+    <string name="message_preference_category_no_disturbing">no_disturbing</string>
+    <string name="message_preference_no_disturbing_or_not">no_disturbing_or_not</string>
+    <string name="message_preference_function_no_disturbing">function_no_disturbing</string>
+    
+    <!-- private_preference的所有key值 -->
+    <string name="private_preference_category_friend_apply">friend_apply</string>
+    <string name="private_preference_access_to_info">access_to_info</string>
+    <string name="private_preference_add_friend">add_friend</string>
+    <string name="private_preference_recieve_message">recieve_message</string>
+    
+    <string name="private_preference_category_friend_control">friend_control</string>
+    <string name="pruvate_preference_blacklist">blacklist</string>
+    <string name="private_preference_refuse_access">refuse_access</string>
+    
+    <!-- universal_prefernece的所有ksy值 -->
+    <string name="universal_preference_category_chat_settings">chat_settings</string>
+    <string name="universal_preference_font_size">font_size</string>
+    <string name="universal_preference_background">background</string>
+    <string name="universal_preference_category_global_control">global_control</string>
+    
+    <!-- choose_pic的所有key值 -->
+    <string name="choose_pic_get_background_from_system">get_background_from_system</string>
+    <string name="choose_pic_get_background_from_album">get_background_from_album</string>
+    <string name="choose_pic_get_from_take_photo">get_from_take_photo</string>
+</resources>

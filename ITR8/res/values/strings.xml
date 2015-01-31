@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">亮点</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="icon">返回</string>
+    <string name="contacts">联系人</string>
+    <string name="search">搜索</string>
+    <string name="add">添加</string>
+    <!-- contacts listView的文字内容 -->
+    <string-array name="groups">
+        <item>相同专业</item>
+        <item>项目组成员</item>
+        <item>志同道合的人</item>
+    </string-array>
+
+    <string name="share">分享</string>
+    <string name="comment">评论</string>
+    <string name="vote">投票</string>
+    <string name="searchHint">输入你想搜索的标签，内容或用户名</string>
+    <string name="souname1">活跃用户</string>
+    <string name="souname2">专业指导</string>
+    <string name="souname3">校内资讯</string>
+    <string name="spinnerwidth">10px</string>
+    <string name="spinner_prompt">一级标签</string>
+    
+    <!-- spinner的文字内容 -->
+    
+    <string name="users">用户</string>
+    <string name="activity">社团</string>
+    <string name="creation">创意</string>
+    <string name="play">游玩</string>
+    <string name="study">学习</string>
+    <string name="hire">招聘</string>
+    <string name="blank">请选择</string>
+
+    <!-- 设置主界面上的分享/评论/投票按钮 初始和被点击的颜色 -->
+    <drawable name="clr_normal">#00000000</drawable>
+    <drawable name="clr_pressed">#30000000</drawable>
+
+    <!-- 资料界面要用到的东西 -->
+    <string name="more">more</string>
+    <string name="revise">编辑资料</string>
+    <string name="label_major">专业：</string>
+    <string name="label_class">班级：</string>
+    <string name="label_dorm">宿舍：</string>
+    <string name="label_year">入学年份：</string>
+    <string name="label_school">学校院系：</string>
+    <string name="label_sex">性别：</string>
+    <string name="label_age">年龄：</string>
+    <string name="label_experience">活动经历：</string>
+    <string name="label_party">已加入社团：</string>
+    <!-- 设置颜色属性，由于值不多就不新建color.xml，在代码中使用getResource().getColor()方法传值来设置字体颜色 -->
+    <color name="small_text_color">#666</color>
+    <color name="divider_color">#666</color>
+
+</resources>

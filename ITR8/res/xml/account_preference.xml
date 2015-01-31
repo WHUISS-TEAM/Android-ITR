@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:summary="您的账户信息" android:key="@string/account_preference_category_account_info" android:title="账户信息" android:selectable="false" android:enabled="true">
+        <Preference android:key="@string/account_preference_account_num" android:enabled="true" android:title="账号" android:selectable="true"/>
+        <Preference android:key="@string/account_preference_phone_num" android:enabled="true" android:title="手机号" android:selectable="true"/>
+        <Preference android:key="@string/account_preference_email" android:enabled="true" android:title="邮件地址" android:selectable="true"/>
+        <Preference android:key="@string/account_preference_password" android:enabled="true" android:title="修改密码" android:selectable="true"/>
+    </PreferenceCategory>
+    
+
+</PreferenceScreen>

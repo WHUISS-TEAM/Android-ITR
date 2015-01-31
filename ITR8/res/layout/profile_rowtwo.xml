@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_color"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:alpha="0.3"
+        />
+	    
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="17dp"
+	    android:layout_marginBottom="5dp"
+	    android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+	    >
+	    <!--使用alignBaseLine使标题和其中的文本底端对齐-->
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/label_school"
+	        android:layout_alignParentLeft="true"
+	        android:textSize="@dimen/text_size_one"
+	        android:text="@string/label_school"
+	        android:textStyle="bold"
+	        />
+	    
+	    <TextView 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/school"
+	        android:layout_toRightOf="@id/label_school"
+	        android:layout_alignBaseline="@id/label_school"
+	        android:textSize="@dimen/text_size_two"
+	        android:layout_marginLeft="20dp"
+	        android:textColor="@color/small_text_color"
+	        android:textStyle="italic"
+	        />
+	
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_major"
+	        android:id="@+id/label_major"
+	        android:textSize="@dimen/text_size_one"
+	        android:layout_below="@id/label_school"
+	        android:layout_marginTop="10dp"
+	        android:layout_alignLeft="@id/label_school"
+	        android:textStyle="bold"
+	        />
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/text_size_two"
+			android:id="@+id/major"
+			android:singleLine="true"
+	        android:ellipsize="end"
+	        android:layout_toRightOf="@id/label_major"
+	        android:layout_alignBaseline="@id/label_major"
+	        android:layout_marginLeft="20dp"
+	        android:gravity="bottom"
+	        android:textColor="@color/small_text_color"
+	        android:textStyle="italic"
+	        />
+	    
+
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_class"
+	        android:id="@+id/label_class"
+	        android:textSize="@dimen/text_size_one"
+	        android:layout_below="@id/school"
+	        android:layout_toRightOf="@id/major"
+	        android:layout_alignBaseline="@id/major"
+	        android:layout_marginTop="10dp"
+	       	android:layout_marginLeft="30dp"
+	       	android:textStyle="bold"
+	        />	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/text_size_two"
+	       	android:singleLine="true"
+	        android:ellipsize="end"
+	        android:id="@+id/myclass"
+	        android:layout_alignBaseline="@id/label_class"
+	        android:layout_toRightOf="@id/label_class"
+	        android:layout_marginLeft="20dp"
+	        android:textColor="@color/small_text_color"
+	        android:textStyle="italic"
+	        />
+	    	
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_dorm"
+	        android:id="@+id/label_dorm"
+	        android:layout_below="@id/label_major"
+	        android:textSize="@dimen/text_size_one"
+	        android:layout_alignLeft="@id/label_major"
+	        android:layout_marginTop="10dp"
+	        android:textStyle="bold"
+	        />
+	    
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/text_size_two"
+	        android:id="@+id/dorm"
+	        android:singleLine="true"
+	        android:ellipsize="end"	       
+	        android:layout_toRightOf="@id/label_dorm"
+			android:layout_alignBaseline="@id/label_dorm"	
+	        android:layout_marginLeft="20dp"
+	        android:textColor="@color/small_text_color"
+	        android:textStyle="italic"
+	        />
+	    
+
+	    <TextView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_year"
+	        android:id="@+id/label_year"
+	        android:textSize="@dimen/text_size_one"
+	        android:layout_toRightOf="@id/dorm"
+	        android:layout_alignLeft="@id/label_class"
+	        android:layout_alignBaseline="@id/dorm"
+	        android:textStyle="bold"
+	        />	 
+	    <TextView 
+	        android:id="@+id/year"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/text_size_two"
+	        android:ellipsize="end"
+	        android:singleLine="true"
+	        android:layout_toRightOf="@id/label_year"
+	        android:layout_alignBaseline="@id/label_year"
+	        android:layout_marginLeft="20dp"
+	        android:textColor="@color/small_text_color"
+	        android:textStyle="italic"
+	        />
+
+
+
+	
+	</RelativeLayout>
+    
+
+</FrameLayout>

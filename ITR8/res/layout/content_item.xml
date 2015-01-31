@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:arc="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+   	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="vertical">
+		
+        <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="4dp"
+	        android:layout_marginRight="5dp"
+	        android:layout_marginLeft="5dp"
+	        android:background="@drawable/content_arctangle_view">
+			
+            <RelativeLayout 
+                android:id="@+id/upcontent_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+	            <LinearLayout
+	                android:id="@+id/avatar_layout"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:layout_alignParentLeft="true"
+			        android:layout_alignParentTop="true">
+		        
+		            <ImageView
+			            android:id="@+id/user_avatar"
+			            android:layout_width="56dp"
+			            android:layout_height="56dp"
+			            android:layout_alignParentLeft="true"
+			            android:layout_alignParentTop="true"
+			            android:layout_marginLeft="5dp"
+			            android:layout_marginTop="5dp"
+			            android:background="@drawable/avatar_1" />
+		            
+		        </LinearLayout>
+	            
+	            <RelativeLayout
+	                android:id="@+id/info_layout"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="horizontal"
+			        android:layout_alignParentTop="true"
+			        android:layout_toRightOf="@id/avatar_layout"
+			        android:layout_marginTop="5dp">
+		            
+		            <TextView
+			            android:id="@+id/user_name"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:text="匿名同学 "
+			            android:textSize="14sp"
+			            android:textStyle="bold"
+			            android:textColor="#90000000"
+			            android:layout_marginLeft="5dp"/>
+		            
+		            <TextView
+		                android:id="@+id/publish_time"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_alignParentRight="true"
+		                android:layout_marginRight="8dp"
+		                android:layout_marginTop="2dp"
+		                android:text="2014.3.13 20:20"
+		                android:textColor="#85000000"
+		                android:textSize="12sp" />
+		            
+		             <ImageView
+			            android:id="@+id/fir_tag"
+			            android:layout_width="30dp"
+		                android:layout_height="20dp"
+			            android:layout_toLeftOf="@id/publish_time"
+		               	android:layout_marginRight="6dp"
+			            android:background="@drawable/firsttag_1" />
+		            
+		        </RelativeLayout>
+	            
+	            <TextView
+		                android:id="@+id/publish_content"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		               	android:layout_below="@id/info_layout"
+		               	android:layout_toRightOf="@id/avatar_layout"
+		               	android:layout_marginLeft="5dp"
+		               	android:layout_marginRight="8dp"
+		               	android:layout_marginTop="5dp"
+		                android:text="我想加入文学社，谁能告诉我怎么加入啊？？最好有相关负责人的联系方式，感谢！！的联系方式感谢！！的联系方式，感谢！！"
+		                android:textColor="#000"
+		                android:textSize="15.5sp" 
+		                android:lineSpacingExtra="4dp"
+		                android:maxLines="5"
+		                android:ellipsize="end"/>
+			</RelativeLayout>
+			
+            <LinearLayout
+                android:id="@+id/tag_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/upcontent_layout"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tags_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="二级标签： "
+                    android:textStyle="bold"
+                    android:textColor="#80000000"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/sec_tag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/tags_view"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="#文学社  #加社团  #联系方式  #社团  #负责人"
+                    android:textColor="#80000000"
+                    android:textSize="12sp"
+                    android:textStyle="italic" />
+            </LinearLayout>
+
+        </RelativeLayout>
+        
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="30dp"
+	        android:orientation="horizontal"
+	        android:background="#60000000"
+	        android:layout_marginRight="6dp"
+	        android:layout_marginLeft="6dp"
+	        android:layout_marginTop="2dp">
+	        
+           <Button 
+               	android:id="@+id/share"
+               	android:background="@drawable/content_button_color"
+               	android:layout_width="match_parent"
+    			android:layout_height="30dp"
+    			android:layout_weight="1"
+               	android:text="@string/share"
+               	android:textSize="13sp"
+               	android:textColor="#fff" 
+               	android:drawableStart="@drawable/content_share"
+               	android:drawableRight="@drawable/content_line"
+               	android:drawablePadding="-15dp"/>
+
+           
+           <Button 
+               	android:id="@+id/comment"
+               	android:background="@drawable/content_button_color"
+               	android:layout_width="match_parent"
+    			android:layout_height="30dp"
+    			android:layout_weight="1"
+               	android:text="@string/comment"
+               	android:textSize="13sp"
+               	android:textColor="#fff" 
+               	android:drawableLeft="@drawable/content_comment"
+               	android:drawableRight="@drawable/content_line"
+               	android:drawablePadding="-15dp"/>
+           
+           <Button 
+               	android:id="@+id/vote"
+               	android:background="@drawable/content_button_color"
+               	android:layout_width="match_parent"
+    			android:layout_height="30dp"
+    			android:layout_weight="1"
+               	android:text="@string/vote"
+               	android:textSize="13sp"
+               	android:textColor="#fff" 
+               	android:drawableLeft="@drawable/content_vote"
+               	android:drawablePadding="-15dp"/>
+        </LinearLayout>
+        
+    </LinearLayout>
+</RelativeLayout>

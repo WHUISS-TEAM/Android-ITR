@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+    <!--  <ImageView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+     	android:background="@drawable/content_arctangle_view_for_profile"
+     	android:layout_marginTop="5dp"
+        />-->
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+   		android:layout_marginRight="15dp"
+        >
+        
+        <TextView 
+            android:id="@+id/label_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textSize="@dimen/text_size_one"
+            android:textStyle="bold"
+            android:text="@string/label_sex"
+            />
+        <TextView 
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/sex"
+           android:layout_toRightOf="@id/label_sex"
+           android:layout_alignBaseline="@id/label_sex"
+           android:layout_marginLeft="20dp"
+           android:textSize="@dimen/text_size_two"
+           android:textColor="@color/small_text_color"
+           android:textStyle="italic"
+            />
+        <TextView 
+            android:id="@+id/label_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_toRightOf="@id/sex"
+            android:layout_alignBaseline="@id/sex"
+            android:textSize="@dimen/text_size_one"
+            android:textStyle="bold"
+            android:text="@string/label_age"
+            />
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/age"
+            android:layout_toRightOf="@id/label_age"
+            android:layout_alignBaseline="@id/label_age"
+            android:layout_marginLeft="20dp"
+            android:textSize="@dimen/text_size_two"
+            android:textStyle="italic"
+            android:textColor="@color/small_text_color"
+            />
+        
+		<TextView 
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:background="@color/divider_color"
+			android:layout_marginTop="5dp"
+	        android:layout_marginBottom="5dp"
+	        android:alpha="0.3"
+	        android:layout_below="@id/label_sex"
+	        android:id="@+id/divider"
+       		/>
+        
+       
+        <org.itrgroup.itr.utils.NoScrollGridView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:columnWidth="80dp"
+            android:id="@+id/interests"
+			android:layout_alignParentLeft="true"
+			android:layout_below="@id/divider"
+			android:gravity="center"
+
+            />
+        
+    </RelativeLayout>
+
+   
+</FrameLayout>
