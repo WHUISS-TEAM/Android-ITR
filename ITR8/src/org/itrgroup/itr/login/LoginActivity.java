@@ -64,8 +64,8 @@ public class LoginActivity extends Activity {
 		
 		//如果登录过则自动保存密码
 		sp = this.getSharedPreferences("userInfo", this.MODE_WORLD_READABLE);
-		email_text.setText(sp.getString("USER_EMAIL", ""));
-		password_text.setText(sp.getString("USER_PASSWORD", ""));
+		email_text.setText(sp.getString("LOGIN_EMAIL", ""));
+		password_text.setText(sp.getString("LOGIN_PASSWORD", ""));
 		
 		login_button.setOnClickListener(new OnClickListener() {
 			@Override

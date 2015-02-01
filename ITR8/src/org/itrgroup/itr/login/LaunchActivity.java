@@ -18,7 +18,7 @@ public class LaunchActivity  extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_register);
+		setContentView(R.layout.activity_launch);
 		
 		sp = this.getSharedPreferences("userInfo", this.MODE_WORLD_READABLE);
 		Handler handler = new Handler();
