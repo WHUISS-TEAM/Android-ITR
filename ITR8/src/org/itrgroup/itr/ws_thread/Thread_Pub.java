@@ -10,6 +10,8 @@ import org.ksoap2.transport.HttpResponseException;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -53,6 +55,8 @@ public class Thread_Pub extends Thread{
 					Message response = new Message();
 					response.arg1 = 
 					publish(userName, date, location, str_publish_content, choose_tag, str_sec_tag, vote, com, share);
+					response.arg2 = 
+					local_publish(userName, date, location, str_publish_content, choose_tag, str_sec_tag, vote, com, share);
 					response.what = 0x103;
 					activity_handler.sendMessage(response);
 					
@@ -64,6 +68,8 @@ public class Thread_Pub extends Thread{
 		Looper.loop();
 	}
 	
+	//0--发布失败
+	//1--发布成功
 	private int publish(String userName,String date,String location,String str_publish_content,
 			int choose_tag,String str_sec_tag,int vote,int com,int share){
 		final HttpTransportSE transport = new HttpTransportSE(SERVICE_URL);
@@ -97,4 +103,30 @@ public class Thread_Pub extends Thread{
 		}
 		return 0;
 	}
+	
+	//结果同上
+	private int local_publish(String userName,String date,String location,String str_publish_content,
+			int choose_tag,String str_sec_tag,int vote,int com,int share){
+		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH, null);
+		ContentValues values = new ContentValues();
+		values.put("Pub_userName", userName);
+		values.put("Inf_time", date);
+		values.put("Inf_loc", location);
+		values.put("Inf_content", str_publish_content);
+		values.put("Pub_tag_level1", choose_tag);
+		values.put("Pub_tag_level2", str_sec_tag);
+		values.put("Vote_num", vote);
+		values.put("Com_num", com);
+		values.put("Share_num", share);
+		
+		try {
+			if((int)database.insert(userName + "Received", null, values) != -1){
+				return 1;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return 0;
+	}
+	
 }

@@ -123,7 +123,7 @@ public class RegisterActivity extends Activity {
 	public void SelectInterests(){
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("你对哪些内容感兴趣呢？我们将基于你的选择推送消息。(请至少选择3个标签 )");
-        builder.setMultiChoiceItems(AppConfig.items, null,
+        builder.setMultiChoiceItems(AppConfig.user_tag_items, null,
                 new DialogInterface.OnMultiChoiceClickListener() {
          @Override
          public void onClick(DialogInterface dialog, int indexSelected,
@@ -133,12 +133,12 @@ public class RegisterActivity extends Activity {
             	 if(seletedItems.size()<=4){
             		 seletedItems.add(indexSelected + 1);
             	 }else{
-            		 Toast.makeText(RegisterActivity.this, "最多只能选择4个标签 : )", Toast.LENGTH_SHORT).show();
+            		 Toast.makeText(RegisterActivity.this, "最多只能选择5个标签 : )", Toast.LENGTH_SHORT).show();
                 	 ((AlertDialog) dialog).getListView().setItemChecked(indexSelected, false);
             	 }
-             } else if (seletedItems.contains(indexSelected)) {
+             } else if (seletedItems.contains(indexSelected + 1)) {
             	 //任意一个选项被取消勾选时执行
-                 seletedItems.remove(Integer.valueOf(indexSelected));
+                 seletedItems.remove(Integer.valueOf(indexSelected + 1));
              }
          }
      }).setPositiveButton("完成", new DialogInterface.OnClickListener() {
@@ -217,6 +217,7 @@ public class RegisterActivity extends Activity {
 					
 					//保存账号密码
 					Editor editor = sp.edit();
+					editor.putString("REGIST_USERNAME", ""+username.getText());
 					editor.putString("LOGIN_EMAIL", ""+email.getText());
 					editor.putString("LOGIN_PASSWORD",""+password.getText());
 					editor.putBoolean("IS_CHECKED", true);

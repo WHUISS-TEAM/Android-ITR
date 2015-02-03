@@ -16,5 +16,9 @@ public class AppConfig {
 	
 	//Constants for WebService
 	public static String WebService_IP = "http://192.168.1.110:8080/";
-	public static CharSequence[] items = {"社团","创意","游玩","学习","招聘","用户"};
+	public static String[] pub_tag_level1 = {"社团","创意","游玩","学习","招聘"};
+	public static String[] user_tag_items = {"运动","音乐","旅行","摄影","游戏","阅读"};
+	
+	//Constants for local database
+	public static String DATABASE_PATH = "/data/data/org.itrgroup.itr/app_database/pub.db3";
 }

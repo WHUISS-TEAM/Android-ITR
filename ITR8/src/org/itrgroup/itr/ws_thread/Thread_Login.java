@@ -1,6 +1,7 @@
 package org.itrgroup.itr.ws_thread;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.itrgroup.itr.utils.AppConfig;
 import org.ksoap2.SoapEnvelope;
@@ -10,7 +11,9 @@ import org.ksoap2.transport.HttpResponseException;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.content.ContentValues;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -88,7 +91,23 @@ public class Thread_Login extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//if(re){ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			//没有办法获得用户名
+			//InsertProfile(username, email);
+		//}
 		return re;
 	}
+	
+	private void InsertProfile(String username, String email){
+		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH, null);
+		ContentValues values = new ContentValues();
+		values.put("email", email);
+		values.put("username", username);
+		database.insert("profile", null, values);
+
+		database.close();
+	}
+	
 }
 

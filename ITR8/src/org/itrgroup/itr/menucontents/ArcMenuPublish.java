@@ -13,6 +13,8 @@ import org.itrgroup.itr.ws_thread.Thread_Pub;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +37,7 @@ public class ArcMenuPublish extends Activity{
 	private FragmentUtils utils = new FragmentUtils();
 	private ActionBar actionBar = null;
 	private Spinner mSpinner;
+	private SharedPreferences sp;
 	private Handler pub_handler = null;
 	private Thread_Pub pub_thread = null;
 	//判断一级标签
@@ -44,7 +47,7 @@ public class ArcMenuPublish extends Activity{
 	//发布的内容
 	private EditText publish_content = null;
 	//指定的用户名
-	private String userName = "Albertlee";
+	private String userName = "";
 	//指定地点
 	private String location = "CS";
 	//指定的用户头像
@@ -68,11 +71,20 @@ public class ArcMenuPublish extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		//用于获得登录者的用户名
+		sp = this.getSharedPreferences("userInfo", this.MODE_WORLD_READABLE);
+				
 		pub_handler = new Pub_Handler();
 		pub_thread = new Thread_Pub(pub_handler);
 		pub_thread.start();
 		
 		setContentView(R.layout.main_publish);
+		//这里获得的是注册时的用户的用户名，存在两个问题：
+		//1. 注册用户名可以是中文，中文可以做数据库的名字吗？
+		//2. 登录用户获取不到注册名，但能获取到邮箱；
+		//所以只能注册，此处还要修改。
+		userName = sp.getString("REGIST_USERNAME", "");
 		sec_tag = (EditText)findViewById(R.id.sec_tag);
 		publish_content = (EditText)findViewById(R.id.publish_content);
 		
@@ -189,16 +201,19 @@ public class ArcMenuPublish extends Activity{
 		}
 	}
 
+//-------------------------------如果只有一个发布成功了怎么办？？？
+//一边的数据库存入了数据，而另一边没有，如果重复进行操作肯定会造成数据重复
+//15.2.2
 	private class Pub_Handler extends Handler{
 		@Override
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			super.handleMessage(msg);
 			if(msg.what == 0x103){
-				if(msg.arg1 == 0){
+				if(msg.arg1 == 0||msg.arg2 == 0){
 					Toast.makeText(ArcMenuPublish.this, "发布失败", Toast.LENGTH_SHORT).show();
 				}
-				if(msg.arg1 == 1){
+				if(msg.arg1 == 1&&msg.arg2 == 1){
 					MainContentModel new_msg = new MainContentModel(userName, date_msg, spinner_data[choose_tag-1], 
 							str_sec_tag, str_publish_content, head, share_num, comment_num, vote_num);
 					Intent intent = new Intent();
@@ -212,5 +227,6 @@ public class ArcMenuPublish extends Activity{
 			}
 		}
 	}
+	
 	
 }

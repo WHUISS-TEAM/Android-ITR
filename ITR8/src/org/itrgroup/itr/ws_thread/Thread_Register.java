@@ -3,6 +3,7 @@ package org.itrgroup.itr.ws_thread;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.itrgroup.itr.main.MainActivity;
 import org.itrgroup.itr.utils.AppConfig;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -11,11 +12,14 @@ import org.ksoap2.transport.HttpResponseException;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.R.integer;
+import android.content.ContentValues;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.widget.Toast;
 
 public class Thread_Register extends Thread{
 
@@ -44,7 +48,9 @@ public class Thread_Register extends Thread{
 		// TODO Auto-generated method stub
 		Looper.prepare();
 		register_handler = new Handler(){
-
+			
+			String username;
+			String email;
 			@Override
 			public void handleMessage(Message msg) {
 				// TODO Auto-generated method stub
@@ -52,17 +58,19 @@ public class Thread_Register extends Thread{
 				//第一页的注册
 				if(msg.what == 0x111){
 					Bundle bundle = msg.getData();
-					String username = bundle.getString("username");
+					username = bundle.getString("username");
 					String password = bundle.getString("password");
-					String email = bundle.getString("email");
+					email = bundle.getString("email");
 					final_result = execute(username, password, email);
 					Message message = new Message();
 					message.arg1 = final_result;
 					message.what = 0x101;
 					activity_handler.sendMessage(message);
 					//当注册成功的时候，自动为用户创建表
+					//为用户在本地创建数据表
 					if(final_result == 2){
 						createTable(username);
+						createLocalTable(username);
 					}
 				}
 				
@@ -76,6 +84,9 @@ public class Thread_Register extends Thread{
 					message2.arg1 = tag_result;
 					message2.what = 0x102;
 					activity_handler.sendMessage(message2);
+					if(tag_result == 1){
+						InsertProfile(username,email,seletedItems);
+					}
 				}
 			}
 			
@@ -170,6 +181,51 @@ public class Thread_Register extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private void createLocalTable(String userName){
+		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH, null);
+		String create_sql = "CREATE TABLE " + userName + "Received" + " ("
+				+ "Pub_inforId integer PRIMARY KEY AUTOINCREMENT NOT NULL,"
+				+ "Pub_userName varchar(50) NOT NULL DEFAULT '',"
+				+ "Pub_userHead char(255) DEFAULT NULL,"
+				+ "Inf_time datetime NOT NULL,"
+				+ "Inf_loc tinytext,"
+				+ "Inf_content text NOT NULL,"
+				+ "Pub_tag_level1 smallint NOT NULL,"
+				+ "Pub_tag_level2 text NOT NULL,"
+				+ "Vote_num smallint NOT NULL DEFAULT '0',"
+				+ "Com_num smallint NOT NULL DEFAULT '0',"
+				+ "Share_num smallint NOT NULL DEFAULT '0',"
+				+ "FOREIGN KEY(Pub_tag_level1) REFERENCES Pub_tag_level1 (tag_id)"
+				+ ")";
+		//很奇怪，用这样的语句不需要最后加分号
+		try {
+			database.execSQL(create_sql);
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("创建失败");
+			e.printStackTrace();
+		}finally{
+			database.close();
+		}
+	}
+	
+	private void InsertProfile(String username, String email, ArrayList<Integer> seletedItems){
+		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH, null);
+		ContentValues values = new ContentValues();
+		values.put("email", email);
+		values.put("username", username);
+		database.insert("profile", null, values);
+		
+		for(int index : seletedItems){
+			ContentValues selected = new ContentValues();
+			selected.put("profile_id", profile_id);
+			selected.put("tag_id", index);
+			database.insert("user_tag_link", null, selected);
+		}
+		
+		database.close();
 	}
 	
 }

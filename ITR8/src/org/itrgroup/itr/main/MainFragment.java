@@ -67,6 +67,7 @@ public class MainFragment extends Fragment {
 		
 		return rootView;
 	}
+	//fragment不同于activity，在暂停和停止状态后再次可见都会回调onstart方法
 		@Override
 		public void onResume() {
 			// TODO Auto-generated method stub
