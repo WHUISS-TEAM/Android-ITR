@@ -20,5 +20,5 @@ public class AppConfig {
 	public static String[] user_tag_items = {"运动","音乐","旅行","摄影","游戏","阅读"};
 	
 	//Constants for local database
-	public static String DATABASE_PATH = "/data/data/org.itrgroup.itr/app_database/pub.db3";
+	public static String DATABASE_PATH = "/data/data/org.itrgroup.itr/database";
 }

@@ -11,6 +11,7 @@ import org.ksoap2.transport.HttpResponseException;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.R.integer;
 import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,7 +29,9 @@ public class Thread_Login extends Thread{
 	private static final String SERVICE_URL = AppConfig.WebService_IP + "DBConnection"
 			+"/WSLoginPort";
 	private static final String SERVICE_NS = "http://dbConnection/";
-	private boolean final_result = false;
+	private int final_result = 0;
+	private int profile_id = 0;
+	private String username = null;
 	
 	public Thread_Login() {
 		// TODO Auto-generated constructor stub
@@ -48,13 +51,14 @@ public class Thread_Login extends Thread{
 					Bundle message = msg.getData();
 					String email = message.getString("email");
 					String password = message.getString("password");
-					String db_name = message.getString("db_name");
 					//连接webservice的方法
-					final_result = execute(email, password, db_name);
+					final_result = execute(email, password);
 					Message result_msg = new Message();
 					result_msg.what = 0x321;
 					Bundle bundle = new Bundle();
-					bundle.putBoolean("result", final_result);
+					bundle.putInt("result", final_result);
+					bundle.putString("username", username);
+					bundle.putInt("profile_id", profile_id);
 					result_msg.setData(bundle);
 					activity_handler.sendMessage(result_msg);
 				}
@@ -64,8 +68,10 @@ public class Thread_Login extends Thread{
 		Looper.loop();
 	}
 	
-	private boolean execute(String email,String password,String db_name){
-		boolean re =  false;
+	//0 表示失败
+	//1 表示成功
+	private int execute(String email,String password){
+		int re =  0;
 		//连接webservice的方法以及调用方法解析结果的方法
 		final HttpTransportSE transport = new HttpTransportSE(SERVICE_URL);
 		transport.debug = true;
@@ -79,7 +85,11 @@ public class Thread_Login extends Thread{
 			if(envelope.getResponse() != null){
 				SoapObject result_object = (SoapObject)envelope.bodyIn;
 				String ress = envelope.bodyIn.toString();
-				re = Boolean.parseBoolean(result_object.getProperty(0).toString());
+				re = Integer.parseInt(result_object.getProperty(0).toString());
+				if(re == 1){
+					profile_id = Integer.parseInt(result_object.getProperty(1).toString());
+					username = result_object.getProperty(2).toString();
+				}
 			}
 		} catch (HttpResponseException e) {
 			// TODO Auto-generated catch block
@@ -99,15 +109,15 @@ public class Thread_Login extends Thread{
 		return re;
 	}
 	
-	private void InsertProfile(String username, String email){
-		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH, null);
-		ContentValues values = new ContentValues();
-		values.put("email", email);
-		values.put("username", username);
-		database.insert("profile", null, values);
-
-		database.close();
-	}
+//	private void InsertProfile(String username, String email){
+//		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH, null);
+//		ContentValues values = new ContentValues();
+//		values.put("email", email);
+//		values.put("username", username);
+//		database.insert("profile", null, values);
+//
+//		database.close();
+//	}
 	
 }
 

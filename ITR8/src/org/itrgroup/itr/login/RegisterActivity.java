@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import org.itrgroup.itr.R;
 import org.itrgroup.itr.main.MainActivity;
 import org.itrgroup.itr.utils.AppConfig;
+import org.itrgroup.itr.utils.IniDatabaseHelper;
 import org.itrgroup.itr.ws_thread.Thread_Register;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,6 +39,8 @@ public class RegisterActivity extends Activity {
 	private String str_email;
 	private String str_username;
 	private String str_password;
+	//注册时默认的头像
+	private String user_head = "avatar_1.png";
 	private Button next = null;
 	private int register_result = -1;
 	//Checkbox
@@ -108,6 +113,7 @@ public class RegisterActivity extends Activity {
 								bundle.putString("username", str_username);
 								bundle.putString("password", str_password);
 								bundle.putString("email", str_email);
+								bundle.putString("user_head", user_head);
 								msg.setData(bundle);
 								msg.what = 0x111;
 								register_thread.register_handler.sendMessage(msg);
@@ -199,6 +205,7 @@ public class RegisterActivity extends Activity {
 						break;
 					case 2:
 						Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+						new IniDatabaseHelper(RegisterActivity.this, str_email + ".db3" , null, 1).getReadableDatabase();
 						seletedItems.clear();
 						SelectInterests();
 						break;
@@ -215,6 +222,10 @@ public class RegisterActivity extends Activity {
 				case 1:
 					Toast.makeText(RegisterActivity.this, "标签选择成功", Toast.LENGTH_SHORT).show();
 					
+					SharedPreferences users = getSharedPreferences("user_list", 0);
+					//注册完成将用户设置为true
+					users.edit().putBoolean(str_email, true).commit();
+					new RegisterLocalInsert(msg.arg2).start();
 					//保存账号密码
 					Editor editor = sp.edit();
 					editor.putString("REGIST_USERNAME", ""+username.getText());
@@ -232,6 +243,34 @@ public class RegisterActivity extends Activity {
 		}
 		
 	}
+	
+	private class RegisterLocalInsert extends Thread{
+		private int profile_id;
+		public RegisterLocalInsert(int profile_id) {
+			// TODO Auto-generated constructor stub
+			this.profile_id = profile_id;
+		}
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			SQLiteDatabase database = 
+			new IniDatabaseHelper(RegisterActivity.this, str_email + ".db3", null, 1).getReadableDatabase();
+			ContentValues values = new ContentValues();
+			values.put("email", str_email);
+			values.put("username", str_username);
+			values.put("profile_id", profile_id);
+			database.insert("profile", null, values);
+			
+			for(int index : seletedItems){
+				ContentValues selected = new ContentValues();
+				selected.put("profile_id", profile_id);
+				selected.put("tag_id", index);
+				database.insert("user_tag_link", null, selected);
+			}
+			database.close();
+		}
+	}
+
 
 }
 

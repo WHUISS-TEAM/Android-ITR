@@ -5,12 +5,16 @@ import java.security.NoSuchAlgorithmException;
 
 import org.itrgroup.itr.R;
 import org.itrgroup.itr.main.MainActivity;
+import org.itrgroup.itr.utils.IniDatabaseHelper;
 import org.itrgroup.itr.ws_thread.Thread_Login;
 
+import android.R.integer;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,8 +38,7 @@ public class LoginActivity extends Activity {
 	private String email = "";
 	private String password = "";
 	private Thread_Login login_Thread = null;
-	//数据库的名字
-	private static final String db_name = "itr";
+
 	//用于设置自动登陆
 	private SharedPreferences sp;
 	
@@ -97,7 +100,6 @@ public class LoginActivity extends Activity {
 						Bundle bundle = new Bundle();
 						bundle.putString("email", email);
 						bundle.putString("password",password);
-						bundle.putString("db_name",db_name);
 						msg.setData(bundle);
 						//启用线程中的handle message
 						login_Thread.login_handler.sendMessage(msg);
@@ -138,13 +140,30 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated method stub
 			if(msg.what == 0x321){
 				Bundle bundle = msg.getData();
-				boolean result = true;
-				result = bundle.getBoolean("result");
-				if(result){
+				int result = 0;
+				int profile_id;
+				String username;
+				result = bundle.getInt("result");
+				profile_id = bundle.getInt("profile_id");
+				username = bundle.getString("username");
+				System.out.println(profile_id + "~~~~" + username);
+				
+				if(result == 1){
 					//结果为true，保存账号密码，设置自动登陆并启动主页的activity
 					//setFlag用来设置启动的模式
 					//FLAG_ACTIVITY_CLEAR_TASK：在启动新的activity之前将已有的都清空掉
 					//必须和后者一起使用
+					SharedPreferences users = getSharedPreferences("user_list", 0);
+					//如果该名用户是第一次在该软件上登陆，则返回false
+					boolean before = users.getBoolean(email, false);
+					//如果为false，则为该用户进行一些初始化工作
+					//相应的在注册完成后自动将注册用户设置为true
+					if(!before){
+						new IniDatabaseHelper(LoginActivity.this, email + ".db3", null, 1).getReadableDatabase().close();
+						users.edit().putBoolean(email, true).commit();
+					}
+					
+					new LoginLocalInsert(profile_id,username).start();
 					
 					Editor editor = sp.edit();
 					editor.putString("LOGIN_EMAIL", email);
@@ -160,6 +179,29 @@ public class LoginActivity extends Activity {
 					Toast.makeText(LoginActivity.this, "账号或密码错误", Toast.LENGTH_SHORT).show();
 				}
 			}
+		}
+	}
+	
+	private class LoginLocalInsert extends Thread{
+		private int profile_id;
+		private String str_username;
+		public LoginLocalInsert(int profile_id, String str_username) {
+			// TODO Auto-generated constructor stub
+			this.profile_id = profile_id;
+			this.str_username = str_username;
+		}
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			SQLiteDatabase database = 
+			new IniDatabaseHelper(LoginActivity.this, email + ".db3", null, 1).getReadableDatabase();
+			ContentValues values = new ContentValues();
+			values.put("email", email);
+			values.put("username", str_username);
+			values.put("profile_id", profile_id);
+			database.insert("profile", null, values);
+			
+			database.close();
 		}
 	}
 	

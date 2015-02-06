@@ -7,11 +7,14 @@ import org.itrgroup.itr.R;
 import org.itrgroup.itr.adapter.SpinnerAdapter;
 import org.itrgroup.itr.main.MainActivity;
 import org.itrgroup.itr.model.MainContentModel;
+import org.itrgroup.itr.utils.AppConfig;
 import org.itrgroup.itr.utils.FragmentUtils;
+import org.itrgroup.itr.utils.IniDatabaseHelper;
 import org.itrgroup.itr.ws_thread.Thread_Pub;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -48,10 +51,14 @@ public class ArcMenuPublish extends Activity{
 	private EditText publish_content = null;
 	//指定的用户名
 	private String userName = "";
+	//指定邮箱，找到数据库
+	private String email = "";
 	//指定地点
 	private String location = "CS";
-	//指定的用户头像
+	//指定的用户头像--用于构建msgmodel对象
 	private int head = R.drawable.avatar_3;
+	//用于模拟数据库存储头像
+	private String user_head = "avatar_1.png";
 	private String date_db;
 	private String date_msg;
 	private String str_sec_tag = "";
@@ -85,6 +92,7 @@ public class ArcMenuPublish extends Activity{
 		//2. 登录用户获取不到注册名，但能获取到邮箱；
 		//所以只能注册，此处还要修改。
 		userName = sp.getString("REGIST_USERNAME", "");
+		email = sp.getString("LOGIN_EMAIL", "");
 		sec_tag = (EditText)findViewById(R.id.sec_tag);
 		publish_content = (EditText)findViewById(R.id.publish_content);
 		
@@ -182,12 +190,14 @@ public class ArcMenuPublish extends Activity{
 					comment_num = 0;
 					vote_num = 0;
 					Bundle data = new Bundle();
+					data.putString("email", email);
 					data.putString("userName", userName);
+					data.putString("user_head", user_head);
 					data.putString("Inf_time", date_db);
 					data.putString("Inf_loc", location);
 					data.putString("Inf_content", str_publish_content);
-					data.putInt("Label_lavel1", choose_tag);
-					data.putString("Label_level2", str_sec_tag);
+					data.putInt("Pub_tag_level1", choose_tag);
+					data.putString("Pub_tag_level2", str_sec_tag);
 					data.putInt("vote", vote_num);
 					data.putInt("com", comment_num);
 					data.putInt("share", share_num);
@@ -210,10 +220,11 @@ public class ArcMenuPublish extends Activity{
 			// TODO Auto-generated method stub
 			super.handleMessage(msg);
 			if(msg.what == 0x103){
-				if(msg.arg1 == 0||msg.arg2 == 0){
+				if(msg.arg1 == 0){
 					Toast.makeText(ArcMenuPublish.this, "发布失败", Toast.LENGTH_SHORT).show();
 				}
-				if(msg.arg1 == 1&&msg.arg2 == 1){
+				if(msg.arg1 == 1){
+					new LocalPub().start();
 					MainContentModel new_msg = new MainContentModel(userName, date_msg, spinner_data[choose_tag-1], 
 							str_sec_tag, str_publish_content, head, share_num, comment_num, vote_num);
 					Intent intent = new Intent();
@@ -228,5 +239,39 @@ public class ArcMenuPublish extends Activity{
 		}
 	}
 	
+	private class LocalPub extends Thread{
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			local_publish(userName, user_head, date_db, location, str_publish_content, choose_tag, str_sec_tag, vote_num, comment_num, share_num);
+		}
+	}
+	
+	private int local_publish(String userName,String user_head,String date,String location,String str_publish_content,
+			int choose_tag,String str_sec_tag,int vote,int com,int share){
+		SQLiteDatabase database = new IniDatabaseHelper(this, email + ".db3", null, 1).getReadableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("Pub_userName", userName);
+		values.put("Pub_userHead", user_head);
+		values.put("Inf_time", date);
+		values.put("Inf_loc", location);
+		values.put("Inf_content", str_publish_content);
+		values.put("Pub_tag_level1", choose_tag);
+		values.put("Pub_tag_level2", str_sec_tag);
+		values.put("Vote_num", vote);
+		values.put("Com_num", com);
+		values.put("Share_num", share);
+		
+		try {
+			if((int)database.insert("Received", null, values) != -1){
+				return 1;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally{
+			database.close();
+		}
+		return 0;
+	}
 	
 }

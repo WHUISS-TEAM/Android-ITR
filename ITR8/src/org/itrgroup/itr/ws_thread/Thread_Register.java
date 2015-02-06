@@ -3,8 +3,10 @@ package org.itrgroup.itr.ws_thread;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.itrgroup.itr.login.RegisterActivity;
 import org.itrgroup.itr.main.MainActivity;
 import org.itrgroup.itr.utils.AppConfig;
+import org.itrgroup.itr.utils.IniDatabaseHelper;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -61,16 +63,17 @@ public class Thread_Register extends Thread{
 					username = bundle.getString("username");
 					String password = bundle.getString("password");
 					email = bundle.getString("email");
-					final_result = execute(username, password, email);
+					String user_head = bundle.getString("user_head");
+					final_result = execute(user_head,username, password, email);
 					Message message = new Message();
 					message.arg1 = final_result;
 					message.what = 0x101;
 					activity_handler.sendMessage(message);
 					//当注册成功的时候，自动为用户创建表
-					//为用户在本地创建数据表
+					//为用户初始化本地数据库
 					if(final_result == 2){
 						createTable(username);
-						createLocalTable(username);
+//						createLocalTable(username);
 					}
 				}
 				
@@ -82,11 +85,13 @@ public class Thread_Register extends Thread{
 					tag_result = tagInsert(seletedItems);
 					Message message2 = new Message();
 					message2.arg1 = tag_result;
+					//懒得用bundle了就先用这个算了。。。。
+					message2.arg2 = profile_id;
 					message2.what = 0x102;
 					activity_handler.sendMessage(message2);
-					if(tag_result == 1){
-						InsertProfile(username,email,seletedItems);
-					}
+//					if(tag_result == 1){
+//						InsertProfile(username,email,seletedItems);
+//					}
 				}
 			}
 			
@@ -95,15 +100,15 @@ public class Thread_Register extends Thread{
 		Looper.loop();
 	}
 	
-	private int execute(String username,String password,String email){
+	private int execute(String user_head,String username,String password,String email){
 		final HttpTransportSE transport = new HttpTransportSE(SERVICE_URL);
 		transport.debug = true;
 		final SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		SoapObject object = new SoapObject(SERVICE_NS, "registerUser");
-		
-		object.addProperty("arg0",username);
-		object.addProperty("arg1", password);
-		object.addProperty("arg2", email);
+		object.addProperty("arg0", user_head);
+		object.addProperty("arg1",username);
+		object.addProperty("arg2", password);
+		object.addProperty("arg3", email);
 		
 		envelope.bodyOut = object;
 		
@@ -183,36 +188,41 @@ public class Thread_Register extends Thread{
 		}
 	}
 	
-	private void createLocalTable(String userName){
-		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH, null);
-		String create_sql = "CREATE TABLE " + userName + "Received" + " ("
-				+ "Pub_inforId integer PRIMARY KEY AUTOINCREMENT NOT NULL,"
-				+ "Pub_userName varchar(50) NOT NULL DEFAULT '',"
-				+ "Pub_userHead char(255) DEFAULT NULL,"
-				+ "Inf_time datetime NOT NULL,"
-				+ "Inf_loc tinytext,"
-				+ "Inf_content text NOT NULL,"
-				+ "Pub_tag_level1 smallint NOT NULL,"
-				+ "Pub_tag_level2 text NOT NULL,"
-				+ "Vote_num smallint NOT NULL DEFAULT '0',"
-				+ "Com_num smallint NOT NULL DEFAULT '0',"
-				+ "Share_num smallint NOT NULL DEFAULT '0',"
-				+ "FOREIGN KEY(Pub_tag_level1) REFERENCES Pub_tag_level1 (tag_id)"
-				+ ")";
-		//很奇怪，用这样的语句不需要最后加分号
-		try {
-			database.execSQL(create_sql);
-		} catch (SQLException e) {
-			// TODO: handle exception
-			System.out.println("创建失败");
-			e.printStackTrace();
-		}finally{
-			database.close();
-		}
-	}
+//	private void createLocalTable(String userName){
+//		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH, null);
+//		String create_sql = "CREATE TABLE " + userName + "Received" + " ("
+//				+ "Pub_inforId integer PRIMARY KEY AUTOINCREMENT NOT NULL,"
+//				+ "Pub_userName varchar(50) NOT NULL DEFAULT '',"
+//				+ "Pub_userHead char(255) DEFAULT NULL,"
+//				+ "Inf_time datetime NOT NULL,"
+//				+ "Inf_loc tinytext,"
+//				+ "Inf_content text NOT NULL,"
+//				+ "Pub_tag_level1 smallint NOT NULL,"
+//				+ "Pub_tag_level2 text NOT NULL,"
+//				+ "Vote_num smallint NOT NULL DEFAULT '0',"
+//				+ "Com_num smallint NOT NULL DEFAULT '0',"
+//				+ "Share_num smallint NOT NULL DEFAULT '0',"
+//				+ "FOREIGN KEY(Pub_tag_level1) REFERENCES Pub_tag_level1 (tag_id)"
+//				+ ")";
+//		//很奇怪，用这样的语句不需要最后加分号
+//		try {
+//			database.execSQL(create_sql);
+//		} catch (SQLException e) {
+//			// TODO: handle exception
+//			System.out.println("创建失败");
+//			e.printStackTrace();
+//		}finally{
+//			database.close();
+//		}
+//	}
 	
 	private void InsertProfile(String username, String email, ArrayList<Integer> seletedItems){
-		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH, null);
+		System.out.println(email);
+		System.out.println(AppConfig.DATABASE_PATH 
+				+ "/" + email + ".db3");
+		SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(AppConfig.DATABASE_PATH 
+				+ "/" + email + ".db3" , null);
+		System.out.println(email);
 		ContentValues values = new ContentValues();
 		values.put("email", email);
 		values.put("username", username);
